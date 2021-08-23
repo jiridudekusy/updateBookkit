@@ -33,5 +33,9 @@ example:
 node src/updateBookkit.js https://uuapp.plus4u.net/uu-bookkit-maing01/1111111 123 dev subapp2 1.2.3 /tmp/passwordFile
 ```
 
-
+## password file
+```bash
+accessCode1=mysecret1
+accessCode2=mysecret2
+```
 
