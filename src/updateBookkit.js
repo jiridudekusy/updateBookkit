@@ -3,8 +3,8 @@ const { AuthenticationService, AppClient } = require("uu_appg01_server-client");
 
 let bookkitUrl = process.argv[2]
 let pageID = process.argv[3]
-let environment = process.argv[4]
-let application = process.argv[5]
+let environment = process.argv[4].toLowerCase()
+let application = process.argv[5].toLowerCase()
 let version = process.argv[6]
 let passwordFile = process.argv[7]
 
@@ -43,7 +43,7 @@ async function main() {
   //await console.log(uu5DataMap.table1.data)
 
 
-  await console.log("updating page for env: " + environment + ", app: " + application + "version: " + version)
+  await console.log("updating page for env: " + environment + ", app: " + application + ", version: " + version)
   var postDtoIn = {"code": pageID , "uu5DataMap": uu5DataMap }
 
  // await console.log(postDtoIn)
