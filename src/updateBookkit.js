@@ -43,7 +43,7 @@ async function main() {
   //await console.log(uu5DataMap.table1.data)
 
 
-  await console.log("updating page")
+  await console.log("updating page for env: " + environment + ", app: " + application + "version: " + version)
   var postDtoIn = {"code": pageID , "uu5DataMap": uu5DataMap }
 
  // await console.log(postDtoIn)
