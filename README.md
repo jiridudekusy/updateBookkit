@@ -39,3 +39,5 @@ accessCode1=mysecret1
 accessCode2=mysecret2
 ```
 
+## other scripts
+- script for downloading bookkit binary files [README.md](src/other/README.md)
