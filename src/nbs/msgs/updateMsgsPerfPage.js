@@ -70,8 +70,6 @@ function updateRow(){
            if (uu5DataMap.hasOwnProperty(key)) {
                if(key === channel ){
                     var mecPosition = getMecPosition()
-                    console.log("aaaaaa -" + mecPosition)
-                    process.exit();
                     var rowPosition = getRowPositionByBuildID()
                     uu5DataMap[channel].data[rowPosition][mecPosition] = mecValue + " - "+ ackValue
                     uu5DataMap[channel].data[rowPosition][dateTimePosition] = timestamp
