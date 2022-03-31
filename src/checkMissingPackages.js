@@ -8,6 +8,7 @@ let packagelock = process.argv[2]
 let depsData = fs.readFileSync(packagelock);
 let depsJson = JSON.parse(depsData);
 let missingDepencencies = [];
+let missingDepencenciesLength = 0;
 
 async function checkDependency(dependency) {
 
@@ -15,7 +16,7 @@ async function checkDependency(dependency) {
         const req = http.request( depsJson.dependencies[dependency].resolved, res => {
             console.log("\t checking url: " +  depsJson.dependencies[dependency].resolved + " statusCode: " + res.statusCode)
             if (res.statusCode != 200) {
-                missingDepencencies.push(dependency);
+                missingDepencenciesLength = missingDepencencies.push(dependency);
             }
             res.on('data', d => {
                 //console.log('data obtained')
@@ -44,10 +45,14 @@ async function main() {
         dependenciesCount--;
     }
 
-    console.log("\nRecapitulation, missing packages below: ")
-    console.log(missingDepencencies);
-
-    process.exit()
+    console.log("\nRecapitulation: ")
+    if(missingDepencenciesLength > 0){
+        console.log("\tmissing packages below: " );
+        console.log(missingDepencencies);
+        process.exit(1)
+    }
+    console.log("\t all done");
+    process.exit(0)
 }
 
 main()
