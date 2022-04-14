@@ -21,10 +21,10 @@ async function checkDependency(dependency) {
         let url = depsJson.dependencies[dependency].resolved;
         url = url.replace(packageLockRegistry, checkRegistry);
         if(!url.includes(checkRegistry)) {
-            throw new Error(`Replac e was not successful depUrl: ${url} packageLockRegistry: ${packageLockRegistry} checkRegistry: ${checkRegistry}`);
+            throw new Error(`Replace was not successful depUrl: ${url} packageLockRegistry: ${packageLockRegistry} checkRegistry: ${checkRegistry}`);
         }
         const req = http.request( url, res => {
-            console.log("\t checking url: " +  depsJson.dependencies[dependency].resolved + " statusCode: " + res.statusCode)
+            console.log("\t checking url: " +  url + " statusCode: " + res.statusCode)
             if (res.statusCode != 200) {
                 missingDepencenciesLength = missingDepencencies.push(dependency);
             }
@@ -45,6 +45,8 @@ async function checkDependency(dependency) {
 
         req.end()
     })
+
+    //FIXME: recursive...there can be dependencies for this dependency
 }
 
 async function main() {
