@@ -4,7 +4,9 @@ const http = require('http');
 const fs = require('fs')
 
 //path to package.lock file
-let packagelock = process.argv[2]
+let packagelock = process.argv[2];
+let packageLockRegistry = process.argv[3];
+let checkRegistry = process.argv[4];
 let depsData = fs.readFileSync(packagelock);
 let depsJson = JSON.parse(depsData);
 let missingDepencencies = [];
@@ -13,7 +15,12 @@ let missingDepencenciesLength = 0;
 async function checkDependency(dependency) {
 
     return new Promise((resolve, reject) => {
-        const req = http.request( depsJson.dependencies[dependency].resolved, res => {
+        let url = depsJson.dependencies[dependency].resolved;
+        url = url.replace(packageLockRegistry, checkRegistry);
+        if(!url.includes(checkRegistry)) {
+            throw new Error(`Replac e was not successful depUrl: ${url} packageLockRegistry: ${packageLockRegistry} checkRegistry: ${checkRegistry}`);
+        }
+        const req = http.request( url, res => {
             console.log("\t checking url: " +  depsJson.dependencies[dependency].resolved + " statusCode: " + res.statusCode)
             if (res.statusCode != 200) {
                 missingDepencenciesLength = missingDepencencies.push(dependency);
