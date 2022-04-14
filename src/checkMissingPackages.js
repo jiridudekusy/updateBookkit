@@ -7,13 +7,16 @@ const fs = require('fs')
 let packagelock = process.argv[2];
 let packageLockRegistry = process.argv[3];
 let checkRegistry = process.argv[4];
+let filter = process.argv[5];
 let depsData = fs.readFileSync(packagelock);
 let depsJson = JSON.parse(depsData);
 let missingDepencencies = [];
 let missingDepencenciesLength = 0;
 
 async function checkDependency(dependency) {
-
+    if(!dependency.includes(filter)){
+        return;
+    }
     return new Promise((resolve, reject) => {
         let url = depsJson.dependencies[dependency].resolved;
         url = url.replace(packageLockRegistry, checkRegistry);
@@ -31,6 +34,7 @@ async function checkDependency(dependency) {
         })
 
         req.on('error', error => {
+            missingDepencenciesLength = missingDepencencies.push(dependency);
             console.error(error)
         })
 
